@@ -1,0 +1,81 @@
+openapi: 3.0.3
+info:
+  title: My first OAS
+  version: '1.0'
+  description: This is my first open api specification
+  termsOfService: https://example.com/tos
+  contact:
+    email: contact@example.com
+    name: Contact
+    url: https://example.com/contact
+  license:
+    name: License
+    url: https://example.com/license
+paths:
+  /Users:
+    summary: Users related operations
+    description: Fetch, create new etc...
+    get:
+      summary: fetch users
+      description: fetch all users
+      operationId: FetchUsers
+      responses:
+        500:
+          description: Internal Server Error
+          content:
+            text/plain; charset=utf-8:
+              examples:
+                test:
+                  value: Internal Server Error
+        2XX:
+          description: fetch all users successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: string
+                    example: 1234
+                  username:
+                    type: string
+                    example: username
+                  score:
+                    type: integer
+                    example: 55
+                  active:
+                    type: boolean
+                    example: true
+        default:
+          description: Default success sample response
+          content:
+            application/json:
+              examples:
+                default response:
+                  value: |-
+                    [
+                      {
+                        "id": "1234abc",
+                        "username": "bear",
+                        "score": 55,
+                        "active": true
+                      },
+                      {
+                        "id": "qwerty",
+                        "username": "jed",
+                        "score": 553,
+                        "active": true
+                      },
+                      {
+                        "username": "schmeb",
+                        "score": 59,
+                        "active": true,
+                        "id": "i1HYeyQ"
+                      }
+                    ]
+      tags:
+        - Users
+servers:
+  - url: https://my-json-server.typicode.com/GauriKudtarkar/API
+    variables: {}
+    description: mock server
