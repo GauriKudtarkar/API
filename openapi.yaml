@@ -28,11 +28,7 @@ paths:
                 test:
                   value: Internal Server Error
         2XX:
-          description: fetch all users successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FullUser'
+          $ref: '#/components/responses/userArrayResponseBody'
         default:
           description: Default success sample response
           content:
@@ -67,19 +63,12 @@ paths:
       description: Store new user on server
       operationId: createUser
       requestBody:
-        content:
-          application/json:
-            schema:
-               $ref: '#/components/schemas/PostNewUser'
+        $ref: '#/components/requestBodies/UserPostBody'
       responses:
         201:
-          description: User created successfully
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FullUser'
+          $ref: '#/components/responses/UserResponseBody'
         default:
-          description: user added successfully
+          $ref: '#/components/responses/DefaultResponseBody'
       tags:
         - Users
 servers:
@@ -90,13 +79,32 @@ servers:
     variables: {}
     description: mock server
 components:
-   schemas:
+  responses:
+    UserResponseBody:
+      description: User created successfully
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/FullUser'
+    userArrayResponseBody:
+      description: array of users
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/UserArray'             
+    DefaultResponseBody:
+      description: Operation performed successfully
+  requestBodies:
+    UserPostBody:
+      content:
+        application/json:
+          schema:
+             $ref: '#/components/schemas/PostNewUser' 
+      required: true
+  schemas:
     PostNewUser:
       type: object
       properties: 
-        id:
-          type: string
-          example: 1234
         username:
           type: string
           example: username
@@ -107,17 +115,14 @@ components:
           type: boolean
           example: true
     FullUser:
-      type: object
-      properties:
-        id:
-          type: string
-          example: 1234
-        username:
-          type: string
-          example: username
-        score:
-          type: integer
-          example: 55
-        active:
-          type: boolean
-          example: true
+      allOf:
+      - $ref: '#/components/schemas/PostNewUser'
+      - type: object
+        properties:
+          id:
+            type: string
+            example: 1234
+    UserArray:
+      type: array
+      items:
+        $ref: '#/components/schemas/FullUser'
