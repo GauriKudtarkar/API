@@ -84,12 +84,7 @@ paths:
         default:
           $ref: '#/components/responses/DefaultResponseBody'
       parameters:
-        - name: userId
-          in: path
-          required: true
-          schema:
-            type: string
-            example: "1234"
+        - $ref: '#/components/parameters/userId'
       tags:
         - Users
 servers:
@@ -107,6 +102,14 @@ servers:
     variables: {}
     description: mock server
 components:
+  parameters:
+    userId:
+      name: userId
+      in: path
+      required: true
+      schema:
+        type: string
+        example: "1234"
   responses:
     UserResponseBody:
       description: User created successfully
