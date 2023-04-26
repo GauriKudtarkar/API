@@ -63,6 +63,9 @@ paths:
       tags:
         - Users
 servers:
+  - url: http://localhost:3000
+    variables: {}
+    description: local mock server   
   - url: https://my-json-server.typicode.com/GauriKudtarkar/API
     variables: {}
     description: mock server
