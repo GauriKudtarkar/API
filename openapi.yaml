@@ -20,7 +20,7 @@ paths:
       description: fetch all users
       operationId: FetchUsers
       responses:
-        500:
+        '500':
           description: Internal Server Error
           content:
             text/plain; charset=utf-8:
@@ -65,20 +65,44 @@ paths:
       requestBody:
         $ref: '#/components/requestBodies/UserPostBody'
       responses:
-        201:
+        '201':
           $ref: '#/components/responses/UserResponseBody'
         default:
           $ref: '#/components/responses/DefaultResponseBody'
       tags:
         - Users
+  /users/{userId}:
+    summary: get user by user id
+    description: get user by user id
+    get:
+      summary: get user by user id
+      description: get user by userid
+      operationId: fetchUser
+      responses:
+        '201':
+          $ref: '#/components/responses/UserResponseBody'
+        default:
+          $ref: '#/components/responses/DefaultResponseBody'
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: string
+            example: "1234"
+      tags:
+        - Users
 servers:
   - url: http://localhost:{port}
-    variables: 
+    variables:
       port:
         default: '3000'
-        enum: ['3000','3001','3002']
-        description: '3000:dev, 3001:test, 3002:production'
-    description: local mock server   
+        enum:
+          - '3000'
+          - '3001'
+          - '3002'
+        description: 3000:dev, 3001:test, 3002:production
+    description: local mock server
   - url: https://my-json-server.typicode.com/GauriKudtarkar/API
     variables: {}
     description: mock server
@@ -95,7 +119,7 @@ components:
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/UserArray'             
+            $ref: '#/components/schemas/UserArray'
     DefaultResponseBody:
       description: Operation performed successfully
   requestBodies:
@@ -103,12 +127,12 @@ components:
       content:
         application/json:
           schema:
-             $ref: '#/components/schemas/PostNewUser' 
+            $ref: '#/components/schemas/PostNewUser'
       required: true
   schemas:
     PostNewUser:
       type: object
-      properties: 
+      properties:
         username:
           type: string
           example: username
@@ -120,15 +144,13 @@ components:
           example: true
     FullUser:
       allOf:
-      - $ref: '#/components/schemas/PostNewUser'
-      - type: object
-        properties:
-          id:
-            type: string
-            example: 1234
+        - $ref: '#/components/schemas/PostNewUser'
+        - type: object
+          properties:
+            id:
+              type: string
+              example: 1234
     UserArray:
       type: array
       items:
         $ref: '#/components/schemas/FullUser'
-           
-
