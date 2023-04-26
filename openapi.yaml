@@ -32,20 +32,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  id:
-                    type: string
-                    example: 1234
-                  username:
-                    type: string
-                    example: username
-                  score:
-                    type: integer
-                    example: 55
-                  active:
-                    type: boolean
-                    example: true
+                $ref: '#/components/schemas/FullUser'
         default:
           description: Default success sample response
           content:
@@ -79,3 +66,20 @@ servers:
   - url: https://my-json-server.typicode.com/GauriKudtarkar/API
     variables: {}
     description: mock server
+components:
+   schemas:
+    FullUser:
+      type: object
+      properties:
+        id:
+          type: string
+          example: 1234
+        username:
+          type: string
+          example: username
+        score:
+          type: integer
+          example: 55
+        active:
+          type: boolean
+          example: true
