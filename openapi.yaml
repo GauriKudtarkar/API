@@ -70,26 +70,18 @@ paths:
         content:
           application/json:
             schema:
-              type: object
-              properties: 
-                id:
-                  type: string
-                  example: 1234
-                username:
-                  type: string
-                  example: username
-                score:
-                  type: integer
-                  example: 55
-                active:
-                  type: boolean
-                  example: true
+               $ref: '#/components/schemas/PostNewUser'
       responses:
+        201:
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FullUser'
         default:
           description: user added successfully
       tags:
         - Users
-      
 servers:
   - url: http://localhost:3000
     variables: {}
@@ -99,6 +91,21 @@ servers:
     description: mock server
 components:
    schemas:
+    PostNewUser:
+      type: object
+      properties: 
+        id:
+          type: string
+          example: 1234
+        username:
+          type: string
+          example: username
+        score:
+          type: integer
+          example: 55
+        active:
+          type: boolean
+          example: true
     FullUser:
       type: object
       properties:
