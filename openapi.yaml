@@ -62,6 +62,34 @@ paths:
                     ]
       tags:
         - Users
+    post:
+      summary: create a new user
+      description: Store new user on server
+      operationId: createUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: 
+                id:
+                  type: string
+                  example: 1234
+                username:
+                  type: string
+                  example: username
+                score:
+                  type: integer
+                  example: 55
+                active:
+                  type: boolean
+                  example: true
+      responses:
+        default:
+          description: user added successfully
+      tags:
+        - Users
+      
 servers:
   - url: http://localhost:3000
     variables: {}
